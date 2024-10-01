@@ -1,14 +1,14 @@
-# Usa una imagen base que contenga Python
-FROM python:3.9
+# Usa una imagen base de OpenJDK
+FROM openjdk:8-jdk-alpine
 
-# Instala Java
-RUN apt-get update && apt-get install -y openjdk-8-jdk && apt-get clean
+# Instala Python y pip
+RUN apk add --no-cache python3 py3-pip
 
 # Configura JAVA_HOME
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Configura el directorio de trabajo
+# Establece el directorio de trabajo
 WORKDIR /app
 
 # Copia el archivo de requerimientos e instala las dependencias
@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Comando para ejecutar tu aplicación
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
