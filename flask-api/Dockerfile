@@ -1,14 +1,14 @@
-# Usa una imagen base de OpenJDK
-FROM openjdk:8-jdk-alpine
+# Usa una imagen base que contenga Python
+FROM python:3.9-alpine
 
-# Instala Python y pip
-RUN apk add --no-cache python3 py3-pip
+# Instala Java (OpenJDK 8)
+RUN apk add --no-cache openjdk8
 
 # Configura JAVA_HOME
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Establece el directorio de trabajo
+# Configura el directorio de trabajo
 WORKDIR /app
 
 # Copia el archivo de requerimientos e instala las dependencias
