@@ -10,7 +10,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # Copia tu aplicación al contenedor
-COPY ./app /app
+COPY ./app 
 WORKDIR /app
 
 # Comando para ejecutar tu aplicación
