@@ -1,3 +1,4 @@
 Flask
-pandas
+pyspark
+redis
 flask-cors

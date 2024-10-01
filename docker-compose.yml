@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  spark-master:
+    image: bitnami/spark:latest
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    command: ["/opt/bitnami/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+
+  spark-worker:
+    image: bitnami/spark:latest
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+    command: ["/opt/bitnami/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+
+  flask-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - spark-master
+      - spark-worker
+      - redis
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
