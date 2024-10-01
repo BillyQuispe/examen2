@@ -21,6 +21,7 @@ cache = redis.Redis(host=redis_host, port=redis_port)
 # Cargar datos
 ratings = spark.read.csv('/data/ratings.dat', sep='::', header=True, inferSchema=True)
 movies = spark.read.csv('/data/movies.dat', sep='::', header=True, inferSchema=True)
+users = spark.read.csv('/data/users.dat', sep='::', header=True, inferSchema=True)  # Cargar usuarios
 
 def manhattan_distance(user1_ratings, user2_ratings):
     common_movies = user1_ratings.join(user2_ratings, 'MovieID')
