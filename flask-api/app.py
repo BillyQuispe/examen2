@@ -3,9 +3,14 @@ from flask_cors import CORS  # Importa CORS
 from pyspark.sql import SparkSession
 import redis
 import json
+import os
 
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para toda la aplicación
+
+# Verifica si las variables de entorno están correctamente configuradas
+os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-11-openjdk-amd64"
+os.environ["PATH"] += os.pathsep + "/usr/lib/jvm/java-11-openjdk-amd64/bin"
 
 # Crear sesión de Spark
 spark = SparkSession.builder \
