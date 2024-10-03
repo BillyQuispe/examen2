@@ -1,0 +1,7 @@
+FROM bde2020/spark-worker:3.1.1-hadoop3.2
+
+# Copiar el script de inicio del trabajador
+COPY worker/start-worker.sh /start-worker.sh
+RUN chmod +x /start-worker.sh
+
+CMD ["/start-worker.sh"]
